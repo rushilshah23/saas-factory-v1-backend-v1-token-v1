@@ -1,3 +1,4 @@
+from typing import List
 from dotenv import load_dotenv
 import os
 load_dotenv()
@@ -5,3 +6,4 @@ load_dotenv()
 class CommonConfig:
     ENVIRONMENT:str = os.environ['ENVIRONMENT']
     LOG_LEVEL:str= os.environ['LOG_LEVEL'].upper()
+    ALLOWED_ORIGINS:List[str] = os.getenv("ALLOWED_ORIGINS", "").split(",")
