@@ -3,7 +3,8 @@ from src.routers.token import router as token_router
 from src.config import Config
 from src.common.config import CommonConfig
 from fastapi.middleware.cors import CORSMiddleware
-
+from src.common.helpers.response import CustomResponse
+from src.common.helpers.status_codes import StatusCodes
 
 
 
@@ -25,6 +26,12 @@ def create_app():
         allow_headers=["*"],    # or restrict ["Authorization", "Content-Type"]
     )
 
+
+    @app.get("/health")
+    def health_check():
+        return CustomResponse(status_code=StatusCodes.HTTP_200_OK, message="Token service healthy").to_dict()
+    
+    
     app.include_router(token_router)
     return app
 
