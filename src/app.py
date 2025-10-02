@@ -9,10 +9,11 @@ from src.common.helpers.status_codes import StatusCodes
 
 
 def create_app():
+    print(CommonConfig.ENVIRONMENT)
     app = FastAPI(
-        docs_url=None if CommonConfig.ENVIRONMENT == 'PRODUCTION' else "/docs",
-        redoc_url=None if CommonConfig.ENVIRONMENT == 'PRODUCTION'  else "/redoc",
-        openapi_url=None if CommonConfig.ENVIRONMENT == 'PRODUCTION'  else "/openapi.json"        
+        docs_url=None if CommonConfig.ENVIRONMENT=="PRODUCTION" else "/docs",
+        redoc_url=None if CommonConfig.ENVIRONMENT=="PRODUCTION"  else "/redoc",
+        openapi_url=None if CommonConfig.ENVIRONMENT=="PRODUCTION"  else "/openapi.json"        
     )
 
 
@@ -31,7 +32,7 @@ def create_app():
     def health_check():
         return CustomResponse(status_code=StatusCodes.HTTP_200_OK, message="Token service healthy").to_dict()
     
-    
+
     app.include_router(token_router)
     return app
 
